@@ -5,6 +5,10 @@ A Contact application which is used to display the contacts in local phone and d
 ## Development setup
 Android app using java for writing code. Fork, clone this project and open it in Android Studio.  
 
+## Releases(APK of the App)
+C:\Users\BHAVNA HARITSA\MyApplication2\app\build\outputs\apk\debug
+
+
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/37215508/56849031-e55b4a00-690c-11e9-94e1-a3161ef90c70.png)   ![image](https://user-images.githubusercontent.com/37215508/56849071-8ba74f80-690d-11e9-9311-4856a33816a1.png)
 
