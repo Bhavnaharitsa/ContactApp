@@ -1,5 +1,5 @@
 # ContactApp
-A Contact application which is used to display the contacts in local phone and display the information about each cn=ontact like mail id, number, image and name.
+A Contact application which is used to display the contacts in local phone and display the information about each cnntact like mail id, number, image and name.
 
 
 ## Development setup
