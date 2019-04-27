@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,6 @@ public class AboutActivity extends AppCompatActivity {
     TextView nameTextView;
     TextView emailTextView;
     TextView phoneNumTextView;
-    TextView photoUriTextView;
     CircleImageView photoImageView;
 
     String name;
@@ -37,13 +37,14 @@ public class AboutActivity extends AppCompatActivity {
         nameTextView = findViewById(R.id.name_about);
         phoneNumTextView = findViewById(R.id.number_about);
         emailTextView = findViewById(R.id.email_about);
-        photoUriTextView = findViewById(R.id.photouri_about);
         photoImageView = findViewById(R.id.imageView);
 
        // LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) photoImageView.getLayoutParams();
         //params.width = 60;
 // existing height is ok as is, no need to edit it
         //photoImageView.setLayoutParams(params);
+
+        Toast.makeText(this, photoUri, Toast.LENGTH_SHORT).show();
 
         name = getIntent().getStringExtra("NAME");
         phoneNum = getIntent().getStringExtra("NUMBER");
@@ -66,7 +67,7 @@ public class AboutActivity extends AppCompatActivity {
         nameTextView.setText(name);
         phoneNumTextView.setText(phoneNum);
         emailTextView.setText(email);
-        photoUriTextView.setText(photoUri);
+
     }
 
 }

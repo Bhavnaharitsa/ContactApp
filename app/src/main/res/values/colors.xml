@@ -5,4 +5,8 @@
     <color name="colorAccent">#D81B60</color>
     <color name="wuteva">#125eea</color>
     <color name="background">#212121</color>
+    <color name="startblue">#2196F3</color>
+    <color name="endblue">#00BCD4</color>
+    <color name="greylight">#757575</color>
+
 </resources>
