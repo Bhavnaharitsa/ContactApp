@@ -19,3 +19,4 @@ C:\Users\BHAVNA HARITSA\MyApplication2\app\build\outputs\apk\debug
 * Creative UI
 * Sharing data through intent
 * Fixing bugs
+* Using third party dependencies to implement certain features
