@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AboutActivity"/>
+        <activity android:name=".AboutActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
     </application>
 <uses-permission android:name="android.permission.READ_CONTACTS" />
 

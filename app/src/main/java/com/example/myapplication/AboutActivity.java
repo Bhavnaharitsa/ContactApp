@@ -1,13 +1,17 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.github.tamir7.contacts.Contacts;
 
@@ -29,8 +33,9 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.about_contact);
-
 
         Contacts.initialize(this);
 
@@ -51,8 +56,12 @@ public class AboutActivity extends AppCompatActivity {
         email = getIntent().getStringExtra("EMAIL");
         photoUri = getIntent().getStringExtra("PHOTOURI");
 
+        Log.d(TAG, "photoUri: " + photoUri) ;
         try{
-            photoImageView.setImageURI(Uri.parse(photoUri));
+            if(photoUri != null)
+                photoImageView.setImageURI(Uri.parse(photoUri));
+            else
+                photoImageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.dummyuser));
         }
         catch (Exception e){
             e.printStackTrace();

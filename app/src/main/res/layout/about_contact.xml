@@ -128,7 +128,7 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_email_black_24dp"/>
+                android:src="@drawable/ic_email_white_24dp"/>
             <TextView
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
@@ -146,7 +146,7 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_phone_android_black_24dp"/>
+                android:src="@drawable/ic_phone_android_white_24dp"/>
             <TextView
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
