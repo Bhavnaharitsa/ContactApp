@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
 
     public static boolean isBackPressed = false;
 
+    public static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 100;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Contacts.initialize(this);
 
         recyclerView = findViewById(R.id.recycler);
 
@@ -62,11 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
         //itemAdapter.add(new ContactModel("hahaha", "8252385823"));
         //fastAdapter.notifyDataSetChanged();
-
-        //Populate a list with ContactModel objects
-         contacts = Contacts.getQuery().find();
-
-        handleAddContacts();
 
         //Click management
         fastAdapter.withOnClickListener(new OnClickListener<ContactModel>() {
@@ -90,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        handlePermissions();
+
     }
 
 
@@ -109,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "App is in foreground",
                     Toast.LENGTH_SHORT).show();
         }
-        contacts = Contacts.getQuery().find();
-        handleAddContacts();
+//        contacts = Contacts.getQuery().find();
+//        handleAddContacts();
 
     }
 
@@ -160,33 +161,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleAddContacts(){
-        for(Contact contact : contacts){
-            try {
-                String name = contact.getDisplayName();
-                String number = "";
-                String email = "";
-                String photoUri = contact.getPhotoUri();
-                if(contact.getPhoneNumbers().size() != 0 || contact.getPhoneNumbers() != null){
-                    for(PhoneNumber phoneNumber : contact.getPhoneNumbers()){
-                        number += phoneNumber.getNumber() + "\n";
+        try {
+            for (Contact contact : contacts) {
+                    String name = contact.getDisplayName();
+                    String number = "";
+                    String email = "";
+                    String photoUri = contact.getPhotoUri();
+                    if (contact.getPhoneNumbers().size() != 0 || contact.getPhoneNumbers() != null) {
+                        for (PhoneNumber phoneNumber : contact.getPhoneNumbers()) {
+                            number += phoneNumber.getNumber() + "\n";
+                        }
+                        Log.d(TAG, "handleAddContacts: " + number);
                     }
-                    Log.d(TAG, "handleAddContacts: " + number);
-                }
 
-                if(contact.getEmails().size() != 0 || contact.getEmails() != null){
-                    for(Email e : contact.getEmails()){
-                        email += e.getAddress() + "\n";
+                    if (contact.getEmails().size() != 0 || contact.getEmails() != null) {
+                        for (Email e : contact.getEmails()) {
+                            email += e.getAddress() + "\n";
+                        }
+                        Log.d(TAG, "handleAddContacts: " + email);
+
                     }
-                    Log.d(TAG, "handleAddContacts: " + email);
-
-                }
-                ContactModel x = new ContactModel(name, number, email, photoUri);
-                itemAdapter.add(x);
-                fastAdapter.notifyDataSetChanged();
+                    ContactModel x = new ContactModel(name, number, email, photoUri);
+                    itemAdapter.add(x);
+                    fastAdapter.notifyDataSetChanged();
             }
-            catch (Exception e){
-                e.printStackTrace();
-            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -223,5 +224,63 @@ public class MainActivity extends AppCompatActivity {
         });**/
 
         dialog.show();
+    }
+
+    public void handlePermissions(){
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                    Manifest.permission.READ_CONTACTS)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+//                Toast.makeText(this, "Permissions are required to open the contacts list", Toast.LENGTH_SHORT).show();
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_CONTACTS},
+                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+            } else {
+                // No explanation needed; request the permission
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            // Permission has already been granted
+            requestContacts();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    requestContacts();
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(this, "Permission denied, boo!", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
+    }
+
+    public void requestContacts(){
+        Contacts.initialize(this);
+        //Populate a list with ContactModel objects
+        contacts = Contacts.getQuery().find();
+        handleAddContacts();
     }
 }
