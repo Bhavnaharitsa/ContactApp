@@ -10,10 +10,10 @@ C:\Users\BHAVNA HARITSA\MyApplication2\app\build\outputs\apk\debug
 
 
 ## Screenshots
-![IMG_20190429_085835_125](https://user-images.githubusercontent.com/37215508/56875419-7beb5080-6a5e-11e9-9721-b40726a3f0aa.jpg)
-![IMG_20190429_090150_571](https://user-images.githubusercontent.com/37215508/56875434-8efe2080-6a5e-11e9-832f-2cc1a88a53b9.jpg)
-The app adds a generic picture when the user hasn't uploaded any picture of the contact.
-![IMG_20190429_090427_239](https://user-images.githubusercontent.com/37215508/56875443-9b827900-6a5e-11e9-9fca-b20689143cfd.jpg)
+<img src="https://user-images.githubusercontent.com/37215508/56875419-7beb5080-6a5e-11e9-9721-b40726a3f0aa.jpg" width="250" height="500"/>
+<img src="https://user-images.githubusercontent.com/37215508/56875434-8efe2080-6a5e-11e9-832f-2cc1a88a53b9.jpg" width="250" height="500"/>
+<img src="https://user-images.githubusercontent.com/37215508/56875443-9b827900-6a5e-11e9-9fca-b20689143cfd.jpg" width="250" height="500"/>
+
 
 
 **LessonsLearnt**
